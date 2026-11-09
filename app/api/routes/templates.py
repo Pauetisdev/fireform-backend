@@ -26,7 +26,7 @@ _MAX_TEMPLATE_BYTES = 10 * 1024 * 1024  # 10 MB
 
 @router.post("/upload", response_model=TemplateUploadResponse)
 @limiter.limit("10/minute")
-async def upload_template_pdf(Request: Request,
+async def upload_template_pdf(request: Request,
     file: UploadFile = File(...),
     directory: str = Form(DEFAULT_TEMPLATE_DIR),
 ):

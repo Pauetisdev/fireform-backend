@@ -28,7 +28,7 @@ _MAX_AUDIO_BYTES = 500 * 1024 * 1024  # 500 MB, same as /input/voice
 
 @router.post("/fill", response_model=FormFillResponse)
 @limiter.limit("20/minute")
-def fill_form(Request: Request, form: FormFill, db: Session = Depends(get_db)):
+def fill_form(request: Request, form: FormFill, db: Session = Depends(get_db)):
     fetched_template = get_template(db, form.template_id)
     if not fetched_template:
         raise AppError("Template not found", status_code=404, error_code="TEMPLATE_NOT_FOUND")

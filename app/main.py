@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.middleware.rate_limiter import setup_rate_limiting
+from app.api.middleware.rate_limiter import setup_rate_limiting
 from app.api.router import api_router
 from app.core import config
 from app.core.errors.handlers import register_exception_handlers
