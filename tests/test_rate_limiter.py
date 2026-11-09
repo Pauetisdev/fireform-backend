@@ -1,9 +1,20 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from app.core.config import API_PREFIX
 from app.main import app
+from app.api.middleware.rate_limiter import limiter
 
 client = TestClient(app)
+
+@pytest.fixture(autouse=True)
+def setup_limiter():
+    """Turn on and clean the rate limiter only for the tests in this file."""
+    limiter.enabled = True
+    limiter.reset()
+    yield
+    limiter.enabled = False
+
 
 def test_rate_limit_forms_fill():
     """Test that the /forms/fill endpoint blocks requests after 20 hits per minute."""
